@@ -1,7 +1,7 @@
 {
   "profiles": {
 			"Speak": {
-				"commandLineArgs": "",
+				"commandLineArgs": "-d Communications -r \"Sorry Chief, I Can't let you do that.\"",
 				"commandName": "Project"
 			}
   }

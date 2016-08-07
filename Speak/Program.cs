@@ -17,7 +17,7 @@ namespace SterlingDigital.CommandLineSpeech.Speak
 				return;
 			}
 
-			var Synthesizer = new Synthesizer(consoleArgs.Device, consoleArgs.Voice);
+			var Synthesizer = new Synthesizer(consoleArgs.Device, consoleArgs.Voice, consoleArgs.RandomVoice);
 			Synthesizer.Speak(consoleArgs.TextToSpeak);
 
 		}
@@ -46,6 +46,10 @@ namespace SterlingDigital.CommandLineSpeech.Speak
 						arg.MoveNext();
 						consoleArgs.Voice = arg.Current;
 						break;
+					case "-R":
+					case "--RANDOM-VOICE":
+						consoleArgs.RandomVoice = true;
+						break;
 					default:
 						consoleArgs.TextToSpeak = arg.Current;
 						break;
@@ -71,8 +75,10 @@ namespace SterlingDigital.CommandLineSpeech.Speak
 			Console.WriteLine("Syntax: Speak [options] \"Text To Speak\"");
 			Console.WriteLine();
 			Console.WriteLine("Options:");
-			Console.WriteLine("   -d|--device\tThe device to use (\"{0}\")", string.Join("\", \"", Enum.GetNames(typeof(Role))));
-			Console.WriteLine("   -v|--voice\tThe voice to use. (Defaults to the first one found)");
+			Console.WriteLine("   -d|--device\t\tThe device to use (\"{0}\")", string.Join("\", \"", Enum.GetNames(typeof(Role))));
+			Console.WriteLine("   -v|--voice\t\tThe voice to use. (Defaults to the first one found)");
+			Console.WriteLine("   -r|--random-voice\tUses randomly picks a voice to use.");
+			Console.WriteLine();
 			Console.WriteLine("Example:");
 			Console.WriteLine("Speak -d Communications -v eva \"I can't let you do that chief.\"");
 		}

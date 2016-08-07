@@ -15,14 +15,16 @@ namespace SterlingDigital.CommandLineSpeech.Speak
 	{
 		private readonly int latency = 100;
 		public Role Device { get; set; }
+		public bool RandomVoice { get; set; }
 		public string Voice { get; set; }
 		private SpeechAudioFormatInfo Format => new SpeechAudioFormatInfo(EncodingFormat.Pcm, waveFormat.SampleRate, waveFormat.BitsPerSample, waveFormat.Channels, waveFormat.AverageBytesPerSecond, waveFormat.BlockAlign, null);
 		private WaveFormat waveFormat => new WaveFormat();
 
-		public Synthesizer(Role device, string voice)
+		public Synthesizer(Role device, string voice, bool randomVoice)
 		{
 			Device = device;
 			Voice = voice;
+			RandomVoice = randomVoice;
 		}
 
 		public void Speak(string textToSpeak)
@@ -74,7 +76,17 @@ namespace SterlingDigital.CommandLineSpeech.Speak
 		private void SetVoice(SpeechSynthesizer synth)
 		{
 			var voices = synth.GetInstalledVoices();
-			var voice = voices.FirstOrDefault(v => CultureInfo.CurrentCulture.CompareInfo.IndexOf(v.VoiceInfo.Name, Voice ?? string.Empty, CompareOptions.IgnoreCase) >= 0) ?? voices.First();
+
+			InstalledVoice voice;
+			if (RandomVoice)
+			{
+				voice = voices.OrderBy(x => Guid.NewGuid()).First();
+			}
+			else
+			{
+				voice = voices.FirstOrDefault(v => CultureInfo.CurrentCulture.CompareInfo.IndexOf(v.VoiceInfo.Name, Voice ?? string.Empty, CompareOptions.IgnoreCase) >= 0) ?? voices.First();
+			}
+
 			synth.SelectVoice(voice.VoiceInfo.Name);
 		}
 	}

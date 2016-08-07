@@ -9,5 +9,6 @@ namespace SterlingDigital.CommandLineSpeech.Speak
 		public Role Device { get; set; }
 		public string TextToSpeak { get; set; }
 		public string Voice { get; set; }
+		public bool RandomVoice { get; set; }
 	}
 }
