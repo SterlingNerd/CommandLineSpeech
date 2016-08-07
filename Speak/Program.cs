@@ -1,14 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Speech.Synthesis;
 
-namespace Speak
+namespace SterlingDigital.CommandLineSpeech.Speak
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-        }
-    }
+	public class Program
+	{
+		public static void Main(string[] args)
+		{
+			if (args == null || !args.Any())
+			{
+				// Bail, nothing to say.
+				return;
+			}
+
+			using (var synth = new SpeechSynthesizer())
+			{
+				synth.Speak(args.First());
+			}
+		}
+	}
 }

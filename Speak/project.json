@@ -1,13 +1,18 @@
-﻿{
+{
 	"version": "1.0.0-*",
 	"buildOptions": {
 		"emitEntryPoint": true
 	},
 
-	"dependencies": {
-	},
+    "dependencies": {
+        "NAudio": "1.7.3"
+    },
 
 	"frameworks": {
-		"net462": {}
+        "net462": {
+            "frameworkAssemblies": {
+                "System.Speech": "4.0.0.0"
+            }
+        }
 	}
 }
