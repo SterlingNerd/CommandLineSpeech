@@ -1,8 +1,8 @@
 {
   "profiles": {
-    "Speak": {
-      "commandName": "Project",
-      "commandLineArgs": "test"
-    }
+			"Speak": {
+				"commandLineArgs": "",
+				"commandName": "Project"
+			}
   }
 }
